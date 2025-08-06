@@ -1,0 +1,162 @@
+{% load static %}
+{% load tz %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprovante de Ponto - Sistema Maker</title>
+    
+    <!-- Incluindo o Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importando a fonte Inter do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Definindo a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Paleta de cores baseada no código Flutter */
+        .bg-custom-background {
+            background-color: #F0F8FF; /* Fundo claro (AliceBlue) */
+        }
+        .text-custom-primary-accent {
+            color: #2FBC7C; /* Verde principal */
+        }
+        .border-custom-primary-accent {
+            border-color: #2FBC7C;
+        }
+        .text-custom-dark {
+            color: #333333; /* Texto escuro */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Conteúdo Principal -->
+    <main class="flex flex-col items-center justify-center min-h-screen p-4">
+        <div class="w-full max-w-md">
+            
+            <!-- Card de Comprovante -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+
+                <!-- Header com o Logo -->
+                <header class="w-full p-8 flex items-center justify-center bg-gray-50 border-b border-gray-200">
+                    <div class="h-auto"> <!-- Container do logo ajustado -->
+                        <img src="{% static 'images/CNAT Maker.png' %}" alt="Logo CNAT Maker" class="w-[340px] h-[90px]" onerror="this.src='https://placehold.co/340x90/FFFFFF/333333?text=Logo'">
+                    </div>
+                </header>
+
+                <div class="p-6">
+                    <!-- Cabeçalho com Foto e Nome -->
+                    <div class="flex items-center">
+                        <div class="w-20 h-20 rounded-full bg-gray-200 flex-shrink-0">
+                            <!-- A imagem do usuário viria aqui -->
+                            <img src="{{ ultimo_ponto.bolsista.imagem.url }}" alt="Foto do Usuário" class="w-full h-full rounded-full object-cover" onerror="this.src='https://placehold.co/80x80/E5E7EB/333333?text=Foto'">
+                        </div>
+                        <div class="ml-4">
+                            <h1 class="text-xl font-bold text-custom-dark">
+                                {{ ultimo_ponto.bolsista.user.first_name|default:"Bolsista" }}
+                                {{ ultimo_ponto.bolsista.user.last_name|default:"Desconhecido" }}
+                            </h1>
+                            <p class="text-sm text-gray-500">
+                                Matrícula: {{ ultimo_ponto.bolsista.matricula|default:"20231014040001" }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="my-5 border-gray-200">
+
+                    <!-- Detalhes do Ponto -->
+                    <div class="space-y-4">
+                        <!-- Linha de Informação: Status -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-custom-primary-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="ml-3 text-gray-600">Status:</span>
+                            </div>
+                            <span class="font-bold text-custom-primary-accent">Ponto Registrado!</span>
+                        </div>
+                        <!-- Linha de Informação: Tipo -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-custom-primary-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <span class="ml-3 text-gray-600">Tipo:</span>
+                            </div>
+                            <span class="font-bold text-custom-dark">{% if ultimo_ponto.eh_entrada %} Entrada {% else %} Saida {% endif %}</span>
+                        </div>
+                        <!-- Linha de Informação: Data -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-custom-primary-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="ml-3 text-gray-600">Data:</span>
+                            </div>
+                            <span class="font-bold text-custom-dark">{{ ultimo_ponto.data_hora_do_ponto|localtime|date }}</span>
+                        </div>
+                        <!-- Linha de Informação: Hora -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-custom-primary-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="ml-3 text-gray-600">Hora:</span>
+                            </div>
+                            <span class="font-bold text-custom-dark">{{ ultimo_ponto.data_hora_do_ponto|localtime|time }}</span>
+                        </div>
+
+                        {% if horas_trabalhadas_dia %}
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-custom-primary-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 0H4v2h12V5zM2 11a2 2 0 012-2h12a2 2 0 012 2v5a2 2 0 01-2 2H4a2 2 0 01-2-2v-5z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="ml-3 text-gray-600">Horas trabalhadas hoje:</span>
+                            </div>
+                            <span class="font-bold text-custom-dark">{{ horas_trabalhadas_dia }}</span>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card de Instrução -->
+            <div class="mt-6 bg-white rounded-2xl shadow-lg p-6 flex items-center justify-center space-x-4">
+                <svg class="w-8 h-8 text-custom-primary-accent flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0119.5 12c0 2.065-.84 3.94-2.182 5.312a7.5 7.5 0 01-11.636 0A7.5 7.5 0 017.864 4.243zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 1.5v2.25m6.364.386l-1.591 1.591M20.25 12h-2.25m-.386 6.364l-1.591-1.591M12 22.5V20.25m-6.364-.386l1.591-1.591M3.75 12h2.25m.386-6.364l1.591 1.591" />
+                </svg>
+                <p class="text-custom-dark font-semibold text-center">
+                    Aproxime a digital do sensor para abrir a porta
+                </p>
+            </div>
+
+            <!-- Botão para Voltar -->
+            <div class="mt-8">
+                <a href="/makerpass" class="w-full block text-center py-3 px-6 border-2 border-custom-primary-accent rounded-xl text-white font-bold bg-[#2FBC7C] transition-transform duration-300 transform hover:scale-105">
+                    Voltar para o Início
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        setTimeout(() => {
+            window.location.href = '/makerpass';
+        }, 5000); 
+    </script>
+
+</body>
+</html>

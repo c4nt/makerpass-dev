@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sucesso - Sistema Maker</title>
+    
+    <!-- Incluindo o Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importando a fonte Inter do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Definindo a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* Fundo branco para a página */
+        }
+        /* Cor do footer */
+        .bg-custom-teal-dark {
+            background-color: #2A663A;
+        }
+        /* Cor do texto de sucesso e botão */
+        .text-custom-green-success {
+            color: #6abe74;
+        }
+        .bg-custom-green-success {
+            background-color: #6abe74;
+        }
+        .bg-custom-green-success:hover {
+            background-color: #5aaf64;
+        }
+        /* Cor do ícone SVG, para contrastar com o fundo branco */
+        .text-custom-teal-dark {
+            color: #367a71;
+        }
+        /* Cor do texto do header */
+        .text-header-gray {
+            color: #4b5563; /* Tailwind gray-600 */
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="w-full p-4 flex items-center justify-between shadow-md bg-white">
+        <!-- Ícone de Menu (Hamburguer) -->
+        <button class="text-header-gray">
+            <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
+        
+        <!-- Logo -->
+        <div class="flex items-center">
+            <div class="flex items-center justify-center">
+                <!-- Imagem do Logo -->
+                <div class=" rounded-lg mr-4">
+                  <img src="{% static 'images/CNAT Maker.png' %}" alt="Logomarca do CNATMAKER" class="w-[340px] h-[90px]">
+                </div>
+            </div>
+        </div>
+
+        <!-- Ícones da Direita -->
+        <div class="flex items-center space-x-4">
+            <div class="flex items-center text-header-gray">
+                <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-6h6m-3 6a9 9 0 110-18 9 9 0 010 18z" />
+                </svg>
+                <span class="ml-1 font-bold text-lg">100</span>
+            </div>
+            <button class="text-header-gray">
+                <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow flex flex-col items-center justify-center text-center px-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-custom-green-success mb-6">
+            Cadastro realizado com sucesso!
+        </h1>
+        <p class="text-gray-600 max-w-md mb-4">
+            Sua conta foi criada. Agora você já pode acessar o sistema com seu email e senha.
+        </p>
+        <p class="text-gray-800 font-bold max-w-md mb-8">
+            Fique atento às notificações e ao e-mail cadastrado para novidades e informações importantes.
+        </p>
+        
+        <!-- Botão para voltar ao login -->
+        <a href="/auth/login" class="w-full max-w-xs py-3 mb-4 rounded-full bg-custom-green-success text-white font-bold text-lg hover:bg-custom-green-success-dark transition-colors duration-300">
+            Ir para Login
+        </a>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-custom-teal-dark text-white p-8 mt-12">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-2">Contato</h3>
+                <p>• maker.cnat@ifrn.edu.br</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-2">Redes Sociais</h3>
+                <ul>
+                    <li>• Instagram: @cnatmaker</li>
+                    <li>• WhatsApp: 84 99999-9999</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

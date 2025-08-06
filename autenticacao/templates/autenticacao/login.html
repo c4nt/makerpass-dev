@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema Maker</title>
+    
+    <!-- Incluindo o Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importando a fonte Inter do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Definindo a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Cor de fundo da página (mais claro) */
+        .bg-custom-teal-light {
+            background-color: #F4F4F4;
+        }
+        /* Cor da moldura do formulário (mais escuro) */
+        .bg-custom-teal-dark {
+            background-color: #2A663A;
+        }
+        /* Cor do ícone SVG, para contrastar com o fundo branco */
+        .text-custom-teal-dark {
+            color: #367a71;
+        }
+        /* Cor de botão personalizada */
+        .bg-custom-green {
+            background-color: #92d39a;
+        }
+        .bg-custom-green:hover {
+            background-color: #82c58a;
+        }
+        /* Cor dos inputs */
+        .bg-custom-gray {
+            background-color: #e5e7eb; /* Equivalente a bg-gray-200 do Tailwind */
+        }
+    </style>
+</head>
+<body class="bg-custom-teal-light">
+
+    <!-- Container Principal -->
+    <div class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
+        
+        <div class="w-full max-w-sm text-center">
+            
+            <div class="flex items-center justify-center mb-8">
+                <!-- Imagem do Logo -->
+                <div class=" rounded-lg mr-4">
+                  <img src="{% static 'images/CNAT Maker.png' %}" alt="Logomarca do CNATMAKER" class="w-[340px] h-[90px]">
+                </div>
+            </div>
+
+            <!-- Moldura do Formulário -->
+            <div class="bg-custom-teal-dark px-8 py-12 rounded-lg shadow-2x1">
+                <!-- Formulário de Login -->
+                <div class="w-full">
+                    <h1 class="text-5xl font-bold mb-2">Login</h1>
+                    <p class="text-lg mb-6">Acesse ao Sistema Maker:</p>
+                    
+                    <form method="post" action="#">
+                        {% csrf_token %}
+                        
+                        <!-- Campo de Email -->
+                        <div class="mb-4 text-left">
+                            <label for="email" class="block text-sm font-medium mb-1">Email:</label>
+                            <input type="email" id="email" name="email" class="w-full p-3 rounded-lg bg-custom-gray text-gray-800 focus:outline-none focus:ring-2 focus:ring-custom-green" required>
+                        </div>
+                        
+                        <!-- Campo de Senha -->
+                        <div class="mb-6 text-left">
+                            <label for="password" class="block text-sm font-medium mb-1">Senha:</label>
+                            <div class="relative">
+                                <input type="password" id="password" name="senha" class="w-full p-3 rounded-lg bg-custom-gray text-gray-800 focus:outline-none focus:ring-2 focus:ring-custom-green" required>
+                                <!-- Ícone de olho para mostrar/ocultar senha -->
+                                <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600">
+                                    <svg id="eye-icon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <svg id="eye-slash-icon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.243 4.243l-4.243-4.243" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        {% if messages %}
+                            <div class="mb-4">
+                                {% for message in messages %}
+                                    <div class="text-red-400 text-center font-semibold" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Botão de Acesso -->
+                        <button type="submit" class="w-full py-3 mb-4 rounded-full bg-custom-green text-gray-800 font-bold text-lg hover:bg-custom-green-dark transition-colors duration-300">
+                            Acessar
+                        </button>
+                    </form>
+
+                    <!-- Links Adicionais -->
+                    <div class="text-center text-sm">
+                        <a href="#" class="text-white hover:underline">Esqueceu ou deseja alterar sua senha?</a>
+                        
+                        <hr class="border-t border-gray-400 my-4">
+
+                        <p>Não possui uma conta? <a href="{% url 'tipo_cadastro' %}" class="font-bold hover:underline">Criar</a></p>
+                        
+                        <hr class="border-t border-gray-400 my-4">
+
+                        <a href="#" class="text-white hover:underline">Você desejar entrar como uma empresa do ITNC/CNAT?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script para alternar a visibilidade da senha
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+        const eyeSlashIcon = document.getElementById('eye-slash-icon');
+
+        togglePassword.addEventListener('click', function () {
+            // Alterna o tipo do input
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Alterna os ícones
+            eyeIcon.classList.toggle('hidden');
+            eyeSlashIcon.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
