@@ -46,6 +46,12 @@ class PaginaRegistroPontoView(View):
                 return redirect('pagina_registro_ponto')
 
         eh_entrada = not ultimo_ponto.eh_entrada if ultimo_ponto else True
+        
+        if not eh_entrada:
+            if ultimo_ponto.data_hora_do_ponto.date() < timezone.now().date():
+                ultimo_ponto.delete()
+                eh_entrada = True
+
         ponto_criado = Ponto.objects.create(bolsista=servidor, eh_entrada=eh_entrada)
 
         # --- LÓGICA DE SUCESSO COM SESSÃO ---
@@ -97,74 +103,74 @@ class PaginaSucessoPontoView(TemplateView):
         
         return context
     
-@method_decorator(csrf_exempt, name='dispatch')
-class ApiRegistrarPontoView(View):
+# @method_decorator(csrf_exempt, name='dispatch')
+# class ApiRegistrarPontoView(View):
 
-    async def post(self, request, *args, **kwargs):
-        try:
-            data = json.loads(request.body)
-            id_sensor = data['id_sensor']
-            print(id)
+#     async def post(self, request, *args, **kwargs):
+#         try:
+#             data = json.loads(request.body)
+#             id_sensor = data['id_sensor']
+#             print(id)
 
-            # A lógica de negócio principal é exatamente a mesma.
-            servidor = await Servidor.objects.aget(id_sensor_biometrico=id_sensor)
-            ultimo_ponto = await Ponto.objects.filter(bolsista=servidor).alast()
+#             # A lógica de negócio principal é exatamente a mesma.
+#             servidor = await Servidor.objects.aget(id_sensor_biometrico=id_sensor)
+#             ultimo_ponto = await Ponto.objects.filter(bolsista=servidor).alast()
 
-            if ultimo_ponto:
-                agora = timezone.now()
-                tempo_desde_ultimo_ponto = agora - ultimo_ponto.data_hora_do_ponto
+#             if ultimo_ponto:
+#                 agora = timezone.now()
+#                 tempo_desde_ultimo_ponto = agora - ultimo_ponto.data_hora_do_ponto
 
-                if tempo_desde_ultimo_ponto < timedelta(minutes=1):
-                    segundos_restantes = int(60 - tempo_desde_ultimo_ponto.total_seconds())
-                    print(f"[API] Registro bloqueado para {servidor.matricula}. Tolerância de 1 min. Faltam {segundos_restantes}s.")
+#                 if tempo_desde_ultimo_ponto < timedelta(minutes=1):
+#                     segundos_restantes = int(60 - tempo_desde_ultimo_ponto.total_seconds())
+#                     print(f"[API] Registro bloqueado para {servidor.matricula}. Tolerância de 1 min. Faltam {segundos_restantes}s.")
                     
-                    return JsonResponse({
-                        "status": "error",
-                        "message": f"Aguarde {segundos_restantes} segundos para registrar um novo ponto."
-                    }, status=429)
+#                     return JsonResponse({
+#                         "status": "error",
+#                         "message": f"Aguarde {segundos_restantes} segundos para registrar um novo ponto."
+#                     }, status=429)
 
-            eh_entrada = not ultimo_ponto.eh_entrada if ultimo_ponto else True
+#             eh_entrada = not ultimo_ponto.eh_entrada if ultimo_ponto else True
 
-            ponto_criado = await Ponto.objects.acreate(bolsista=servidor, eh_entrada=eh_entrada)
-            print(ponto_criado)
+#             ponto_criado = await Ponto.objects.acreate(bolsista=servidor, eh_entrada=eh_entrada)
+#             print(ponto_criado)
 
-            ordem_para_arduino = "ABRIR" if eh_entrada else None
+#             ordem_para_arduino = "ABRIR" if eh_entrada else None
 
             
-            # TODO: Notificar o stream de eventos sobre o 'ponto_criado'.
-            # (Nosso próximo passo!)
+#             # TODO: Notificar o stream de eventos sobre o 'ponto_criado'.
+#             # (Nosso próximo passo!)
 
-            return JsonResponse({
-                "status": "success",
-                "message": "Ponto registrado com sucesso.",
-                "servidor": servidor.matricula,
-                "tipo_registro": "Entrada" if eh_entrada else "Saída",
-                "ordem":ordem_para_arduino
-            })
-        except Servidor.DoesNotExist:
-            return JsonResponse({"status": "error", "message": "Matrícula não encontrada."}, status=404)
-        except Exception as e:
-            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+#             return JsonResponse({
+#                 "status": "success",
+#                 "message": "Ponto registrado com sucesso.",
+#                 "servidor": servidor.matricula,
+#                 "tipo_registro": "Entrada" if eh_entrada else "Saída",
+#                 "ordem":ordem_para_arduino
+#             })
+#         except Servidor.DoesNotExist:
+#             return JsonResponse({"status": "error", "message": "Matrícula não encontrada."}, status=404)
+#         except Exception as e:
+#             return JsonResponse({"status": "error", "message": str(e)}, status=500)
 
-    async def get(self, request, *args, **kwargs):
-        # É uma boa prática responder a métodos não permitidos.
-        return JsonResponse({"status": "error", "message": "Método GET não permitido."}, status=405)
+#     async def get(self, request, *args, **kwargs):
+#         # É uma boa prática responder a métodos não permitidos.
+#         return JsonResponse({"status": "error", "message": "Método GET não permitido."}, status=405)
 
-class PontoStreamEventsView(View):
-    """
-    Esta classe lida com a conexão de Streaming para o frontend.
-    A lógica agora está dentro do método 'get'.
-    """
-    async def get(self, request, *args, **kwargs):
-        async def event_stream():
-            # A lógica de notificação virá aqui.
-            # Por enquanto, a view está pronta para recebê-la.
-            while True:
-                # TODO: Implementar a lógica para esperar por uma notificação
-                # da ApiRegistrarPontoView.
-                await asyncio.sleep(1)
+# class PontoStreamEventsView(View):
+#     """
+#     Esta classe lida com a conexão de Streaming para o frontend.
+#     A lógica agora está dentro do método 'get'.
+#     """
+#     async def get(self, request, *args, **kwargs):
+#         async def event_stream():
+#             # A lógica de notificação virá aqui.
+#             # Por enquanto, a view está pronta para recebê-la.
+#             while True:
+#                 # TODO: Implementar a lógica para esperar por uma notificação
+#                 # da ApiRegistrarPontoView.
+#                 await asyncio.sleep(1)
 
-        return StreamingHttpResponse(event_stream(), content_type='text/event-stream')
+#         return StreamingHttpResponse(event_stream(), content_type='text/event-stream')
 
 
 # class RegistroPonto(View):
