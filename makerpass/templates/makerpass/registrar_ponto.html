@@ -117,34 +117,43 @@
     </footer>
 
     <script>
-        // Script para o relógio digital
+        // --- OTIMIZAÇÃO INICIA AQUI ---
+
+        // 1. Busca pelo elemento do relógio UMA ÚNICA VEZ e armazena a referência.
+        const clockElement = document.getElementById('clock');
+
+        // Função para o relógio digital
         function updateClock() {
-            const clockElement = document.getElementById('clock');
-            if (clockElement) {
-                const now = new Date();
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                const seconds = String(now.getSeconds()).padStart(2, '0');
-                clockElement.textContent = `${hours}:${minutes}:${seconds}`;
-            }
+            // 2. A função agora apenas REUTILIZA a referência, sem buscar no DOM.
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            clockElement.textContent = `${hours}:${minutes}:${seconds}`;
         }
 
-        // Script para esconder as mensagens após 3 segundos
+        // 3. Verificamos se o elemento existe ANTES de tentar usá-lo.
+        if (clockElement) {
+            // Atualiza o relógio imediatamente e depois a cada segundo
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
+        // --- FIM DA OTIMIZAÇÃO ---
+
+
+        // Script para esconder as mensagens (permanece o mesmo)
+        // Este código não impacta a performance a longo prazo.
         setTimeout(() => {
             const messagesWrapper = document.getElementById('messages-wrapper');
             if (messagesWrapper) {
                 messagesWrapper.style.transition = 'opacity 0.5s ease';
                 messagesWrapper.style.opacity = '0';
-                // Remove o elemento do DOM após a transição para colapsar o espaço
                 setTimeout(() => {
                     messagesWrapper.style.display = 'none';
                 }, 500);
             }
         }, 3000);
-
-        // Atualiza o relógio imediatamente e depois a cada segundo
-        updateClock();
-        setInterval(updateClock, 1000);
     </script>
 
 </body>
