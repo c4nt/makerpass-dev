@@ -1,0 +1,3 @@
+Autenticação:
+- Terminar a tela de escolha de tipo de cadastro
+- Fazer as views para tipos de cadstros diferentes

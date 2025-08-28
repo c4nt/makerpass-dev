@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipo de Cadastro - Sistema Maker</title>
+    
+    <!-- Incluindo o Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importando a fonte Inter do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Definindo a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Cor de fundo da página (mais claro) */
+        .bg-custom-teal-light {
+            background-color: #F4F4F4;
+        }
+        /* Cor da moldura (mais escuro) */
+        .bg-custom-teal-dark {
+            background-color: #2A663A;
+        }
+        /* Cor de botão personalizada */
+        .bg-custom-green {
+            background-color: #92d39a;
+        }
+        .bg-custom-green:hover {
+            background-color: #82c58a;
+        }
+    </style>
+</head>
+<body class="bg-custom-teal-light">
+
+    <!-- Container Principal -->
+    <div class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
+        
+        <div class="w-full max-w-md text-center">
+            
+            <!-- Logo -->
+            <div class="flex items-center justify-center mb-8">
+                <div class="flex items-center justify-center mb-8">
+                <!-- Imagem do Logo -->
+                <div class=" rounded-lg mr-4">
+                  <img src="{% static 'images/CNAT Maker.png' %}" alt="Logomarca do CNATMAKER" class="w-[340px] h-[90px]">
+                </div>
+            </div>
+                
+            </div>
+
+            <!-- Moldura com Conteúdo Principal -->
+            <div class="bg-custom-teal-dark rounded-lg px-8 py-10">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Escolha o tipo de cadastro</h1>
+                <p class="text-lg mb-8">Selecione o seu tipo de usuário:</p>
+                
+                <!-- Opções de Cadastro -->
+                <div class="space-y-4 max-w-sm mx-auto">
+                    <a href="{% url 'cadastro_servidor' %}" class="block w-full py-4 rounded-lg bg-custom-green text-gray-800 font-bold text-lg hover:bg-opacity-90 transition-colors duration-300">
+                        Servidor do IFRN
+                    </a>
+                    
+                    <a href="{% url 'cadastro_visitante' %}" class="block w-full py-4 rounded-lg bg-custom-green text-gray-800 font-bold text-lg hover:bg-opacity-90 transition-colors duration-300">
+                        Visitante
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
