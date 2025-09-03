@@ -6,14 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Ponto - CNAT Maker</title>
     <link href="{% static 'makerpass/css/tailwind_output.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'makerpass/css/fonts.css' %}">
     
     <!-- Tailwind CSS via CDN -->
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     
     <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         /* Definindo a fonte Inter como padrão e um fallback */
@@ -79,6 +77,22 @@
                                    class="w-full bg-transparent text-center text-lg text-brand-dark-gray border-0 border-b-2 border-gray-300 py-2 focus:outline-none focus:ring-0 focus:border-brand-green transition" 
                                    placeholder="Digite sua matrícula aqui" required>
                         </div>
+
+                           <!-- Mensagens de Feedback (para Django) -->
+                        <div class="min-h-[52px] flex items-center justify-center"> <!-- Container que reserva espaço -->
+                            {% if messages %}
+                                <div class="w-full mt-[-15px]" id="messages-wrapper">
+                                    {% for message in messages %}
+                                        <div class="text-center p-3 rounded-lg 
+                                                    {% if message.tags == 'success' %} bg-green-100 text-green-800 {% endif %}
+                                                    {% if message.tags == 'error' %} bg-red-100 text-red-800 {% endif %}" 
+                                             role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
                         
                         <button type="submit" 
                                 class="w-full py-3 rounded-lg bg-[#2FBC7C] text-white font-bold text-lg transition-colors duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400">
@@ -100,31 +114,53 @@
         </div>
     </footer>
 
-    <script>
-        // --- OTIMIZAÇÃO INICIA AQUI ---
-
-        // 1. Busca pelo elemento do relógio UMA ÚNICA VEZ e armazena a referência.
+<script>
         const clockElement = document.getElementById('clock');
 
-        // Função para o relógio digital
-        function updateClock() {
-            // 2. A função agora apenas REUTILIZA a referência, sem buscar no DOM.
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            clockElement.textContent = `${hours}:${minutes}:${seconds}`;
-        }
-
-        // 3. Verificamos se o elemento existe ANTES de tentar usá-lo.
+        // Verificamos se o elemento do relógio existe na página
         if (clockElement) {
-            // Atualiza o relógio imediatamente e depois a cada segundo
-            updateClock();
-            setInterval(updateClock, 1000);
+            let lastTimestamp = 0; // Armazena o tempo da última atualização
+
+            // A função agora recebe o 'timestamp' do navegador
+            function updateClock(timestamp) {
+                // Executa a atualização apenas se já tiver passado 1 segundo (1000ms)
+                if (timestamp - lastTimestamp >= 1000) {
+                    lastTimestamp = timestamp;
+                    const now = new Date();
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    const seconds = String(now.getSeconds()).padStart(2, '0');
+                    clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+                }
+
+                // Pede ao navegador para chamar 'updateClock' novamente no próximo quadro
+                // Isso cria um loop otimizado e seguro
+                requestAnimationFrame(updateClock);
+            }
+
+            // Inicia o loop chamando a função pela primeira vez
+            requestAnimationFrame(updateClock);
         }
 
-        // --- FIM DA OTIMIZAÇÃO ---
+                // Script para esconder as mensagens após 3 segundos
+        setTimeout(() => {
+            const messagesWrapper = document.getElementById('messages-wrapper');
+            if (messagesWrapper) {
+                messagesWrapper.style.transition = 'opacity 0.5s ease';
+                messagesWrapper.style.opacity = '0';
+                // Remove o elemento do DOM após a transição para colapsar o espaço
+                setTimeout(() => {
+                    messagesWrapper.style.display = 'none';
+                }, 500);
+            }
+        }, 3000);
+
+        // Atualiza o relógio imediatamente e depois a cada segundo
+        updateClock();
+        setInterval(updateClock, 1000);
     </script>
+</body>
+</html>
 
 </body>
 </html>

@@ -2,7 +2,53 @@
 
 /*
 ================================================================================
-| 1. PREFLIGHT (ESTILOS BASE DO TAILWIND)                                       |
+| 0. DEFINIÇÕES DE FONTES LOCAIS (@font-face)                                  |
+================================================================================
+*/
+/* --- Fonte Inter - Peso 400 (Regular) --- */
+@font-face {
+  font-family: 'Inter'; /* Nome que daremos à fonte para usá-la no CSS */
+  font-style: normal;
+  font-weight: 400; /* Peso da fonte (400 é o normal/regular) */
+  src: url('../fonts/Inter-Regular.ttf') format('truetype'); /* Caminho para o arquivo da fonte */
+}
+
+/* --- Fonte Inter - Peso 500 (Medium) --- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500; /* Peso médio */
+  src: url('../fonts/Inter-Medium.ttf') format('truetype');
+}
+
+/* --- Fonte Inter - Peso 600 (SemiBold) --- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600; /* Peso semi-negrito */
+  src: url('../fonts/Inter-SemiBold.ttf') format('truetype');
+}
+
+/* --- Fonte Inter - Peso 700 (Bold) --- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700; /* Peso negrito */
+  src: url('../fonts/Inter-Bold.ttf') format('truetype');
+}
+
+/* --- Fonte Inter - Peso 800 (ExtraBold) --- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800; /* Peso extra-negrito */
+  src: url('../fonts/Inter-ExtraBold.ttf') format('truetype');
+}
+
+
+/*
+================================================================================
+| 1. PREFLIGHT (ESTILOS BASE DO TAILWIND)                                      |
 ================================================================================
 */
 *,
@@ -158,7 +204,7 @@ img, video {
 
 /*
 ================================================================================
-| 2. UTILITY CLASSES (GERADAS A PARTIR DO SEU HTML)                             |
+| 2. UTILITY CLASSES (GERADAS A PARTIR DO SEU HTML)                            |
 ================================================================================
 */
 *,
@@ -367,7 +413,7 @@ img, video {
 
 /*
 ================================================================================
-| 3. ESTILOS PERSONALIZADOS (Movidos da sua tag <style>)                        |
+| 3. ESTILOS PERSONALIZADOS (Movidos da sua tag <style>)                       |
 ================================================================================
 */
 /* Estilos do template de Ponto */
