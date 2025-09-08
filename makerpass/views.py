@@ -51,10 +51,11 @@ class PaginaRegistroPontoView(View):
         
         if not eh_entrada:
             if ultimo_ponto.data_hora_do_ponto.date() < timezone.now().date():
-                ultimo_ponto.delete()
+                ultimo_ponto.eh_valido = False
+                ultimo_ponto.save()
                 eh_entrada = True
 
-        ponto_criado = Ponto.objects.create(bolsista=servidor, eh_entrada=eh_entrada)
+        ponto_criado = Ponto.objects.create(bolsista=servidor, data_hora_do_ponto=timezone.now(), eh_entrada=eh_entrada)
 
         #--- ENVIA DADOS PARA A PÁGINA DE SUCESSO ATRAVÉS DA SESSAO ---
         sucesso_ponto(request, ponto_criado, servidor)

@@ -75,7 +75,7 @@
                             <label for="matricula" class="sr-only">Matrícula do Aluno</label>
                             <input type="text" id="matricula" name="matricula" 
                                    class="w-full bg-transparent text-center text-lg text-brand-dark-gray border-0 border-b-2 border-gray-300 py-2 focus:outline-none focus:ring-0 focus:border-brand-green transition" 
-                                   placeholder="Digite sua matrícula aqui" required>
+                                   placeholder="Digite sua matrícula aqui" required autofocus="text-brand-medium-gray">
                         </div>
 
                            <!-- Mensagens de Feedback (para Django) -->
@@ -116,6 +116,11 @@
 
 <script>
         const clockElement = document.getElementById('clock');
+
+         window.onload = function() {
+            const campo = document.getElementById('campoSempreFocado');
+            campo.focus();
+            };
 
         // Verificamos se o elemento do relógio existe na página
         if (clockElement) {

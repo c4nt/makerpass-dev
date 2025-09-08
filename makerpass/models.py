@@ -4,8 +4,10 @@ from autenticacao.models import Servidor
 
 class Ponto(models.Model):
     bolsista = models.ForeignKey(Servidor, on_delete=models.CASCADE)
-    data_hora_do_ponto = models.DateTimeField(auto_now_add=True) 
-    eh_entrada = models.BooleanField(default=True)   
+    data_hora_do_ponto = models.DateTimeField() 
+    eh_entrada = models.BooleanField(default=True)
+    eh_valido = models.BooleanField(default=True, help_text="Indica se o registro de ponto é válido (ex: uma entrada que possui uma saída correspondente)."
+  )   
 
     def __str__(self):
         hora_local = timezone.localtime(self.data_hora_do_ponto)

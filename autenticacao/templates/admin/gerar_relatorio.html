@@ -1,14 +1,23 @@
 {% extends "admin/base_site.html" %}
+{% load i18n static %}
 
 {% block content %}
-  <h1>Gerar Relatório de Bolsista</h1>
-  {% if error %}
-    <p style="color: red;">{{ error }}</p>
-  {% endif %}
-  <form method="post">
-    {% csrf_token %}
-    <label for="matricula">Matrícula do Bolsista:</label>
-    <input type="text" id="matricula" name="matricula" required>
-    <button type="submit">Gerar Relatório</button>
-  </form>
+<div>
+    <h1>Gerar Relatório de Frequência</h1>
+    <p>
+        Você está gerando um relatório para o servidor: <strong>{{ servidor.user.get_full_name }} (Matrícula: {{ servidor.matricula }})</strong>.
+    </p>
+    <p>Por favor, selecione o mês e o ano desejados.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <input type="hidden" name="servidor_id" value="{{ servidor.id }}">
+
+        <div>
+            <input type="submit" value="Gerar Relatório" class="default">
+        </div>
+    </form>
+</div>
 {% endblock %}
