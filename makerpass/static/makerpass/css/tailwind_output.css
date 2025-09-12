@@ -431,6 +431,34 @@ body {
     border-color: #2A663A;
 }
 
+.mt-2 { margin-top: 0.5rem; }
+.mt-paragrafo-aviso {margin-top: 20px;}
+.mt-aviso { margin-top: 50px; }
+.mt-comunicado { margin-top: -80px; }
+.mt-botao-registrar-ponto-aviso { margin-top: 100px; }
+.mb-16 { margin-bottom: 4rem; }
+.mb-teste { margin-bottom: 2rem; }
+.texto-comunicado {
+  width: 580px;
+}
+.botao-registrar-ponto-aviso {
+  width: 350px;
+  margin-bottom: 50px;
+}
+
+
+/* Adicione na seção de Tipografia (Font & Text) */
+.font-medium { font-weight: 500; }
+.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+.text-gray-800 { --tw-text-opacity: 1; color: rgb(31 41 55 / var(--tw-text-opacity)); }
+
+
+/* Adicione DENTRO da seção de Classes Responsivas no final do arquivo */
+@media (min-width: 768px) {
+  /* ... mantenha as outras classes que já existem aqui ... */
+  .md\:text-5xl { font-size: 3rem; line-height: 1; }
+}
+
 /* Estilos do template de Comprovante */
 .bg-custom-background {
     background-color: #F0F8FF;

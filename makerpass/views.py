@@ -44,7 +44,7 @@ class PaginaRegistroPontoView(View):
                 segundos_restantes = int(60 - tempo_desde_ultimo_ponto.total_seconds())
                 messages.error(request, f"Aguarde {segundos_restantes} segundos para registrar um novo ponto.")
                 return redirect('pagina_registro_ponto')
-
+                
 
         #--- LÓGICA PARA DELETAR PONTOS PENDENTES DO DIA ANTERIOR ---
         eh_entrada = not ultimo_ponto.eh_entrada if ultimo_ponto else True
@@ -73,6 +73,9 @@ class PaginaSucessoPontoView(TemplateView):
         context['horas_trabalhadas_dia'] = self.request.session.pop('horas_trabalhadas_dia', None)
         
         return context
+
+class PaginaDeAvisoView(TemplateView):
+    template_name = "makerpass/visitas_suspensas.html"
 
 def sucesso_ponto(request, ponto_criado, servidor):
         # Limpa dados antigos da sessão para garantir consistência

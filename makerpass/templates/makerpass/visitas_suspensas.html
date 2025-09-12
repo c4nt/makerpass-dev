@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviso - CNAT Maker</title>
+    
+
+    <link href="{% static 'makerpass/css/tailwind_output.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'makerpass/css/fonts.css' %}">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Cores personalizadas para manter a identidade visual */
+        .text-brand-green { color: #059669; } /* Verde escuro para texto */
+        .bg-brand-green { background-color: #10B981; } /* Verde mais claro para botões e rodapé */
+        .border-brand-green { border-color: #059669; }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col justify-center items-center min-h-screen">
+    
+    <header class="mt-aviso">
+        <div>
+            <div class="flex items-center justify-center">
+                <!-- Imagem do Logo -->
+                <div class="h-auto">
+                    <img src="{% static 'images/CNAT Maker.png' %}" alt="Logo CNAT Maker" class="w-[340px] h-[90px]" onerror="this.src='https://placehold.co/340x90/FFFFFF/333333?text=Logo'">
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Container Principal -->
+    <main class="flex-grow flex flex-col items-center justify-center text-center p-4">
+
+        
+        <!-- Logo -->
+
+        <!-- Mensagem de Suspensão -->
+        <div class=" mt-comunicado texto-comunicado ">
+            <p class="text-4xl md:text-5xl text-gray-800 font-medium">COMUNICADO:</p>
+            <div>
+                <p class="text-xl text-gray-600 mt-paragrafo-aviso"><span class="font-bold">Estamos em modo de competição!</span> 
+                    Para que nossa equipe possa se dedicar integralmente às competições de robótica deste mês, as visitas ao laboratório e as novas solicitações de serviço estão temporariamente suspensas.
+    
+                    Nossas atividades serão normalizadas a partir de <span class="font-bold">20 de outubro</span>.
+    
+                    Contamos com sua torcida e compreensão!</p>
+            </div>
+        </div>
+
+        
+    </main>
+    
+    
+    <a href="/makerpass/" class="flex items-center justify-center w-full max-w-sm bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-4 botao-registrar-ponto-aviso">
+        <h2 class="text-xl md:text-2xl font-bold text-brand-green">Registrar Ponto</h2>
+    </a>
+
+    
+</body>
+</html>
+
