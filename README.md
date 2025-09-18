@@ -1,0 +1,7 @@
+# Descrição do Projeto
+
+Desenvolver e implementar um sistema inteligente de controle de acesso e frequência no CNAT Maker utilizando um conjunto de tecnologias embarcadas, como Raspberry Pi, leitores biométricos e RFID, integrados a uma interface web conectada a um banco de dados. O sistema permitirá o registro automatizado e seguro da presença de bolsistas, servidores e visitantes, possibilitando a coleta de dados para a geração de indicadores de uso, permanência e perfil dos usuários do laboratório, contribuindo com a gestão eficiente, a transparência institucional e a formulação de políticas públicas educacionais baseadas em evidências.
+
+# Objetivos do Projeto
+
+O projeto MakerPass tem como objetivo o desenvolvimento de um sistema inteligente de controle de acesso e frequência voltado para bolsistas, estudantes, servidores e visitantes do laboratório CNAT Maker, no Campus Natal Central do IFRN. A solução será implementada utilizando Raspberry Pi, tecnologias web e banco de dados, permitindo a contabilização precisa de presença, tempo de uso dos espaços e geração de relatórios e indicadores. O sistema integrará funcionalidades como login por QR Code, cadastro de usuários, emissão de alertas e acompanhamento de estatísticas em tempo real, promovendo a automação da gestão do laboratório e a segurança institucional. Com vigência de 8 meses, o projeto visa consolidar o uso da tecnologia para fortalecer a cultura maker e ampliar a eficiência das ações educacionais, de pesquisa e extensão no laboratório.
