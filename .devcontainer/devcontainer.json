@@ -1,0 +1,31 @@
+{
+  "name": "Sistema makerpass",
+
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+
+  "forwardPorts": [8000],
+
+  "postCreateCommand": "pip install -r requirements.txt",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.pylintEnabled": true,
+        "python.linting.enabled": true,
+        "python.formatting.provider": "autopep8"
+      },
+      
+      // Lista de extensões que serão instaladas automaticamente
+      "extensions": [
+        "ms-python.python", // Extensão principal do Python
+        "ms-python.vscode-pylance", // IntelliSense poderoso
+        "batisteo.vscode-django", // Snippets e ferramentas para Django
+        "kevinrose.vsc-python-indent" // Ajuda na indentação
+      ]
+    }
+  },
+
+  // Executa o terminal como um usuário não-root (boa prática de segurança)
+  "remoteUser": "vscode"
+}
