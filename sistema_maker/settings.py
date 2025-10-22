@@ -30,6 +30,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    #Postgress
+    'psycopg2',
+    'drf_yasg',
 
     # Apps
     'autenticacao',
@@ -77,6 +81,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'makerpass_db',
+#         'USER': 'postgress',
+#         'PASSWORD': 'postgress',
+#         'HOST': 'localhost', # ou o endereço do seu servidor de banco de dados
+#         'PORT': '5432',      # A porta padrão do PostgreSQL
+#     }
+# }
 
 
 # Password validation
