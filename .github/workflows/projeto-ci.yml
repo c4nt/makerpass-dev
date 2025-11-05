@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main" ] 
 
-
 jobs:
   
   build:
@@ -31,6 +30,11 @@ jobs:
           python -m pip install --upgrade pip
 
           pip install -r requirements.txt
+          
+      - name: Verificar código deprecado
+        run: |
+          echo "🔍 Verificando código Python deprecado..."
+          deprecation-linter --path=. --exit-on-error
 
       - name: Executar OWASP Dependency-Check
         uses: dependency-check/Dependency-Check_Action@main
@@ -50,6 +54,7 @@ jobs:
 
 
   
+
 
 
 
