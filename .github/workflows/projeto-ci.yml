@@ -38,6 +38,7 @@ jobs:
           project: 'makerpass-project'
           scanPath: '.'
           format: 'HTML'
+          out: 'reports'
           args: >
             --disableJar --disableArchive --disableAssembly
             --disableNode --disableRuby --disableGolang
@@ -50,6 +51,7 @@ jobs:
 
 
   
+
 
 
 
