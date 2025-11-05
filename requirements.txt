@@ -1,6 +1,6 @@
 asgiref==3.8.1
 certifi==2025.7.14
-charset-normalizer==3.4.2
+charset-normalizer==3.4.4
 Django==5.1.5
 idna==3.10
 pillow==11.2.1
