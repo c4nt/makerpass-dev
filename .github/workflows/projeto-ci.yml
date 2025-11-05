@@ -33,7 +33,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Executar OWASP Dependency-Check
-        uses: OWASP/dependency-check-action@v5
+        uses: dependency-check/Dependency-Check_Action@v3.1.2
         with:
           project: 'makerpass-project'
           scanPath: '.'
@@ -50,5 +50,6 @@ jobs:
 
 
   
+
 
 
