@@ -29,4 +29,22 @@ jobs:
       - name: Instalar Dependências
         run: |
           python -m pip install --upgrade pip
+
           pip install -r requirements.txt
+
+      - name: Executar OWASP Dependency-Check
+        uses: OWASP/dependency-check-action@v5
+        with:
+          project: 'makerpass-project'
+          scanPath: '.'
+          format: 'HTML'
+          failOnCVSS: '7'
+          args: >
+            --disableJar --disableArchive --disableAssembly
+            --disableNode --disableRuby --disableGolang
+            
+      - name: Upload do Relatório de Scan
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: reports
