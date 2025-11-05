@@ -8,11 +8,3 @@ updates:
     labels:
       - "dependabot"
       - "dependência"
-
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    target-branch: "main"
-    allow:
-      - dependency-type: "all"
