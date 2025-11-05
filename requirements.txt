@@ -1,5 +1,5 @@
 asgiref==3.8.1
-certifi==2025.7.14
+certifi==2025.10.5
 charset-normalizer==3.4.2
 Django==5.1.5
 idna==3.10
