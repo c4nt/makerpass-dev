@@ -33,7 +33,8 @@ jobs:
           
       - name: Verificar código deprecado
         run: |
-          echo "🔍 Verificando código Python deprecado..."
+          echo "Verificando código Python deprecado..."
+          pip install deprecation-linter
           deprecation-linter --path=. --exit-on-error
 
       - name: Executar OWASP Dependency-Check
@@ -54,6 +55,7 @@ jobs:
 
 
   
+
 
 
 
