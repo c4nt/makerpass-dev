@@ -39,7 +39,7 @@ jobs:
       - name: Verificar código potencialmente deprecado
         run: |
           pip install vulture
-          vulture . --min-confidence 80 || true
+          vulture . --min-confidence 80 
 
       - name: Executar OWASP Dependency-Check
         uses: dependency-check/Dependency-Check_Action@main
@@ -59,6 +59,7 @@ jobs:
 
 
   
+
 
 
 
