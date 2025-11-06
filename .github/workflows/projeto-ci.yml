@@ -31,11 +31,15 @@ jobs:
 
           pip install -r requirements.txt
           
-      - name: Verificar código deprecado
+      - name: Verificar dependências deprecadas
         run: |
-          echo "Verificando código Python deprecado..."
-          pip install deprecation-linter
-          deprecation-linter --path=. --exit-on-error
+          pip install deprecated-checker
+          deprecated-checker --path=. --exit-on-error
+
+      - name: Verificar código potencialmente deprecado
+        run: |
+          pip install vulture
+          vulture . --min-confidence 80 || true
 
       - name: Executar OWASP Dependency-Check
         uses: dependency-check/Dependency-Check_Action@main
@@ -55,6 +59,7 @@ jobs:
 
 
   
+
 
 
 
