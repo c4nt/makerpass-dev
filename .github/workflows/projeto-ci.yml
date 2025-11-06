@@ -34,7 +34,7 @@ jobs:
       - name: Verificar dependências deprecadas
         run: |
           pip install deprecated-checker
-          deprecated-checker check. --exit-on-error
+          deprecated-checker check --exit-on-error
 
       - name: Verificar código potencialmente deprecado
         run: |
@@ -59,6 +59,7 @@ jobs:
 
 
   
+
 
 
 
