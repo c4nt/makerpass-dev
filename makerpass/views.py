@@ -1,16 +1,12 @@
 #PYTHON IMPORTS
 import json
-import asyncio
 from datetime import timedelta, datetime, time
 #DJANGO IMPORTS
-from django.http import HttpResponse, StreamingHttpResponse, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import TemplateView
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.utils import timezone
 #APP IMPORTS
@@ -20,10 +16,10 @@ from autenticacao.models import Servidor, User
 class PaginaRegistroPontoView(View):
     template_name = 'makerpass/registrar_ponto.html'
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, **kwargs):
         return render(request, self.template_name)
     
-    def post(self, request, *args, **kwargs):
+    def post(self, request, **kwargs):
         matricula = request.POST.get('matricula')
         if not matricula:
             messages.error(request, "Matrícula não informada.")
