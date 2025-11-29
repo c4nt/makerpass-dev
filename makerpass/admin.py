@@ -1,7 +1,4 @@
 from django.contrib import admin
-from .models import Ponto, JornadaDiaria
+from .models import Ponto
 
 admin.site.register(Ponto)
-admin.site.register(JornadaDiaria)
-
-

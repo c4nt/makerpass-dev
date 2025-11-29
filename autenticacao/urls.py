@@ -1,7 +1,12 @@
 from django.urls import path
-from .views import *
+from .views import (
+    LoginView,
+    TipoCadastroView,
+    CadastroVisitanteView,
+    CadastroServidorView,
+    CadastroSucessoView
+)
 
-# Optar por utilizar CBV ao invés de FBV
 urlpatterns = [
     path('login/', LoginView.as_view(), name="login"),
     path('cadastro/tipo', TipoCadastroView.as_view(), name="tipo_cadastro"),

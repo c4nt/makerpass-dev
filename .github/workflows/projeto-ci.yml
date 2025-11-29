@@ -30,6 +30,9 @@ jobs:
           python -m pip install --upgrade pip
 
           pip install -r requirements.txt
+
+      - name: Verificar Padrão de Código com Pylint
+        run: pylint autenticacao makerpass agendamento
           
       - name: Verificar dependências deprecadas
         run: |

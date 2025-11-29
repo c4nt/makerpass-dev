@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('autenticacao', '0001_initial'),
+        ("autenticacao", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='servidor',
-            name='cpf',
+            model_name="servidor",
+            name="cpf",
             field=models.CharField(blank=True, max_length=11, null=True, unique=True),
         ),
         migrations.AlterField(
-            model_name='visitante',
-            name='cpf',
+            model_name="visitante",
+            name="cpf",
             field=models.CharField(blank=True, max_length=11, null=True, unique=True),
         ),
     ]
