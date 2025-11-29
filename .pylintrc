@@ -1,0 +1,29 @@
+[MASTER]
+
+load-plugins=pylint_django
+
+ignore=migrations, .venv, venv, .git, __pycache__
+
+jobs=0
+
+[MESSAGES CONTROL]
+
+disable=
+    C0114, # missing-module-docstring
+    C0115, # missing-class-docstring
+    C0116, # missing-function-docstring
+    C0103, # invalid-name 
+    W0223, # abstract-method
+    W0511, # fixme 
+
+[FORMAT]
+
+max-line-length=100
+
+[BASIC]
+
+good-names=i,j,k,ex,Run,_,qs,pk,id,db
+
+[DJANGO]
+
+django-settings-module=sistema_maker.settings
