@@ -23,13 +23,8 @@ class LoginView(View):
         if usuario is not None:
             login(request, usuario)
             return HttpResponse("Usuário autenticado")
-        else:
-            messages.error(
-                request, "E-mail ou senha incorretos. Por favor, tente novamente."
-            )
-
+        messages.error(request, "E-mail ou senha incorretos. Por favor, tente novamente.")
         return render(request, "autenticacao/login.html")
-
 
 class CadastroVisitanteView(View):
     def get(self, request):

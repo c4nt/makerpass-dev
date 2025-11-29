@@ -1,8 +1,7 @@
 # test_cooldown.py
 
-import requests
 import time
-import json
+import requests
 
 API_URL = "http://127.0.0.1:8000/makerpass/api/registrar/"
 MATRICULAS = ["20211014040051", "20211014040013"]

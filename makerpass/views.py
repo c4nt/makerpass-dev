@@ -1,19 +1,16 @@
-# PYTHON IMPORTS
-import json
+# Python imports
 from datetime import timedelta, datetime, time
 
-# DJANGO IMPORTS
-from django.http import HttpResponse
+# Django imports
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.views.generic import TemplateView
-from django.views import View
 from django.contrib import messages
 from django.utils import timezone
+from django.views import View
+from django.views.generic import TemplateView
 
-# APP IMPORTS
+# App imports
+from autenticacao.models import Servidor
 from .models import Ponto
-from autenticacao.models import Servidor, User
 from .utils import calcular_total_horas
 
 

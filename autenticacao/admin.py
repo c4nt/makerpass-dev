@@ -1,20 +1,24 @@
-# autenticacao/admin.py
+# pylint: disable=too-many-locals, too-many-statements, broad-exception-caught, inconsistent-return-statements
 
+# Standard imports
+import io
+import os
+
+# Django imports
+from django.conf import settings
 from django.contrib import admin
-from .models import User, Visitante, Servidor
-from makerpass.models import Ponto
-from makerpass.utils import calcular_total_horas
-
-# IMPORTS PARA GERAÇÃO DE PDF
 from django.http import FileResponse
 from django.utils import timezone
-import io
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import inch
+
+# ReportLab imports
 from reportlab.lib.pagesizes import letter
-import os
-from django.conf import settings
-from datetime import timedelta
+from reportlab.lib.units import inch
+from reportlab.pdfgen import canvas
+
+# Local imports
+from makerpass.models import Ponto
+from makerpass.utils import calcular_total_horas
+from .models import Servidor, User, Visitante
 
 
 def gerar_relatorio_pontos_pdf(modeladmin, request, queryset):
