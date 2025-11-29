@@ -9,26 +9,59 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('autenticacao', '0001_initial'),
+        ("autenticacao", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='JornadaDiaria',
+            name="JornadaDiaria",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('data_hora_do_registro', models.DateTimeField(auto_now_add=True)),
-                ('horas_trabalhadas', models.DecimalField(blank=True, decimal_places=2, max_digits=3, null=True)),
-                ('bolsista', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='autenticacao.servidor')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("data_hora_do_registro", models.DateTimeField(auto_now_add=True)),
+                (
+                    "horas_trabalhadas",
+                    models.DecimalField(
+                        blank=True, decimal_places=2, max_digits=3, null=True
+                    ),
+                ),
+                (
+                    "bolsista",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="autenticacao.servidor",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Ponto',
+            name="Ponto",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('data_hora_do_ponto', models.DateTimeField(auto_now_add=True)),
-                ('eh_entrada', models.BooleanField(default=True)),
-                ('bolsista', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='autenticacao.servidor')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("data_hora_do_ponto", models.DateTimeField(auto_now_add=True)),
+                ("eh_entrada", models.BooleanField(default=True)),
+                (
+                    "bolsista",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="autenticacao.servidor",
+                    ),
+                ),
             ],
         ),
     ]

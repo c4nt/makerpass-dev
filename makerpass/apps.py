@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class MakerpassConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'makerpass'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "makerpass"

@@ -2,7 +2,7 @@
 
 load-plugins=pylint_django
 
-ignore=migrations, .venv, venv, .git, __pycache__
+ignore=migrations, .venv, venv, .git, __pycache__, media, static, .devcontainer
 
 jobs=0
 
