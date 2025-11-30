@@ -27,3 +27,9 @@ good-names=i,j,k,ex,Run,_,qs,pk,id,db
 [DJANGO]
 
 django-settings-module=sistema_maker.settings
+
+[SIMILARITIES]
+
+min-similarity-lines=4
+
+ignore-docstrings=yes
