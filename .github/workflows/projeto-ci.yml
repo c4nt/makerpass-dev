@@ -60,7 +60,15 @@ jobs:
           name: dependency-check-report
           path: reports
 
+      - name: Gerar Diagrama de Classes UML
+        run: |
+          python manage.py graph_models autenticacao makerpass agendamento -o diagrama_classes.png
 
+      - name: Upload do Diagrama como Artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagrama-uml-classes
+          path: diagrama_classes.png
   
 
 
