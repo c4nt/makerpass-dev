@@ -42,10 +42,6 @@ COL_DATE_X = PAGE_MARGIN
 COL_TIME_X = PAGE_MARGIN * 3
 COL_TYPE_X = PAGE_MARGIN * 5
 
-def check_value(val):
-    if val < 0:
-        ValueError("O valor deve ser positivo")
-
 # ---------------------------
 # Funções auxiliares de renderização
 # ---------------------------
