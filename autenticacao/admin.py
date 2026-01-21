@@ -69,7 +69,9 @@ def _draw_logo(pdf: canvas.Canvas, width: float, height: float) -> None:
         print(f"ERRO CRÍTICO AO PROCESSAR IMAGEM: {e}")
 
 
-def _draw_title_and_identity(pdf: canvas.Canvas, width: float, height: float, servidor: Servidor) -> None:
+def _draw_title_and_identity(
+    pdf: canvas.Canvas, width: float, height: float, servidor: Servidor
+) -> None:
     pdf.setFont(*TITLE_FONT)
     pdf.drawCentredString(
         width / 2.0, height - TITLE_Y * inch, "Relatório de Frequência do Bolsista"
@@ -81,12 +83,23 @@ def _draw_title_and_identity(pdf: canvas.Canvas, width: float, height: float, se
         height - IDENTITY_START_Y * inch,
         f"Nome: {servidor.user.get_full_name() or 'Não informado'}",
     )
-    pdf.drawString(PAGE_MARGIN, height - (IDENTITY_START_Y + 0.2) * inch, f"Matrícula: {servidor.matricula}")
+    pdf.drawString(
+        PAGE_MARGIN, height - (IDENTITY_START_Y + 0.2) * inch, f"Matrícula: {servidor.matricula}"
+    )
 
     data_emissao = timezone.localtime(timezone.now()).strftime("%d/%m/%Y às %H:%M:%S")
-    pdf.drawString(PAGE_MARGIN, height - (IDENTITY_START_Y + 0.4) * inch, f"Relatório emitido em: {data_emissao}")
+    pdf.drawString(
+        PAGE_MARGIN,
+        height - (IDENTITY_START_Y + 0.4) * inch,
+        f"Relatório emitido em: {data_emissao}",
+    )
 
-    pdf.line(PAGE_MARGIN, height - (IDENTITY_START_Y + 0.6) * inch, width - PAGE_MARGIN, height - (IDENTITY_START_Y + 0.6) * inch)
+    pdf.line(
+        PAGE_MARGIN,
+        height - (IDENTITY_START_Y + 0.6) * inch,
+        width - PAGE_MARGIN,
+        height - (IDENTITY_START_Y + 0.6) * inch,
+    )
 
 
 def _get_pontos_queryset(servidor: Servidor):
@@ -126,7 +139,9 @@ def _draw_day_separator(pdf: canvas.Canvas, width: float, y: float) -> float:
     return y - (DAY_SEPARATOR_SPACING + 0.1 * inch)
 
 
-def _render_points_table(pdf: canvas.Canvas, width: float, height: float, pontos_para_display) -> float:
+def _render_points_table(
+    pdf: canvas.Canvas, width: float, height: float, pontos_para_display
+) -> float:
     y = _start_table_section(pdf, height)
 
     if not pontos_para_display:
@@ -162,7 +177,9 @@ def _render_points_table(pdf: canvas.Canvas, width: float, height: float, pontos
     return y
 
 
-def _draw_totals_footer(pdf: canvas.Canvas, width: float, y: float, total_horas: int, total_minutos: int) -> None:
+def _draw_totals_footer(
+    pdf: canvas.Canvas, width: float, y: float, total_horas: int, total_minutos: int
+) -> None:
     pdf.line(PAGE_MARGIN, y, width - PAGE_MARGIN, y)
     y -= SECTION_SPACING
     pdf.setFont(*SUBTITLE_FONT)
