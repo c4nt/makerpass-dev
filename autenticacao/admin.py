@@ -149,7 +149,7 @@ def _render_points_table(
         pdf.drawString(PAGE_MARGIN, y, "Nenhum ponto registrado para este servidor.")
         return y
 
-    y = _draw_table_header(pdf, width, y)
+    y = _draw_table_header(pdf, y)
     current_day = None
 
     pdf.setFont(*TABLE_TEXT_FONT)
