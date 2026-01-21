@@ -1,4 +1,4 @@
-# pylint: disable=too-many-locals, too-many-statements, broad-exception-caught, inconsistent-return-statements
+# pylint: disable=too-many-locals, too-many-statements, broad-exception-caught, inconsistent-return-statements, disable=unused-argument
 
 # Standard imports
 import io
