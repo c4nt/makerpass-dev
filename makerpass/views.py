@@ -1,5 +1,8 @@
+from datetime import datetime
+
+
 # Python imports
-from datetime import timedelta, datetime, time
+from datetime import timedelta, time
 
 # Django imports
 from django.shortcuts import render, redirect
