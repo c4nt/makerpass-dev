@@ -1,3 +1,10 @@
+# SMELL 1: Imports não utilizados e fora de ordem (Regras F e I)
+import os  # Nunca usado
+import sys # Nunca usado
+from datetime import datetime
+import json
+
+
 # Python imports
 from datetime import timedelta, datetime, time
 
@@ -13,6 +20,15 @@ from autenticacao.models import Servidor
 from .models import Ponto
 from .utils import calcular_total_horas
 
+# SMELL 2: Hardcoded Secrets (Regra S)
+# O Ruff (via plug-in flake8-bandit) pode detectar isso
+SECRET_KEY = "django-insecure-minha-chave-super-secreta-exposta"
+
+# SMELL 3: Shadowing de built-ins (Regra A)
+def verificar_registro(id):
+    # 'id' é uma função built-in do Python. Melhor usar 'registro_id'
+    list = [1, 2, 3] # 'list' também é built-in
+    return list
 
 class PaginaRegistroPontoView(View):
     template_name = "makerpass/registrar_ponto.html"
