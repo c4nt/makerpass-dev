@@ -57,12 +57,12 @@ def _draw_logo(pdf: canvas.Canvas, width: float, height: float) -> None:
             image_width = IMAGE_WIDTH_INCHES * inch
             x_centered = (width - image_width) / 2
             pdf.drawImage(
-                    logo_path,
-                    x_centered,
-                    height - LOGO_Y * inch,
-                    width=image_width,
-                    preserveAspectRatio=True,
-                    )
+                logo_path,
+                x_centered,
+                height - LOGO_Y * inch,
+                width=image_width,
+                preserveAspectRatio=True,
+            )
         else:
             print(f"AVISO: Arquivo de logo não encontrado em {logo_path}")
     except Exception as e:
@@ -70,36 +70,36 @@ def _draw_logo(pdf: canvas.Canvas, width: float, height: float) -> None:
 
 
 def _draw_title_and_identity(
-        pdf: canvas.Canvas, width: float, height: float, servidor: Servidor
-        ) -> None:
+    pdf: canvas.Canvas, width: float, height: float, servidor: Servidor
+) -> None:
     pdf.setFont(*TITLE_FONT)
     pdf.drawCentredString(
-            width / 2.0, height - TITLE_Y * inch, "Relatório de Frequência do Bolsista"
-            )
+        width / 2.0, height - TITLE_Y * inch, "Relatório de Frequência do Bolsista"
+    )
 
     pdf.setFont(*TABLE_TEXT_FONT)
     pdf.drawString(
-            PAGE_MARGIN,
-            height - IDENTITY_START_Y * inch,
-            f"Nome: {servidor.user.get_full_name() or 'Não informado'}",
-            )
+        PAGE_MARGIN,
+        height - IDENTITY_START_Y * inch,
+        f"Nome: {servidor.user.get_full_name() or 'Não informado'}",
+    )
     pdf.drawString(
-            PAGE_MARGIN, height - (IDENTITY_START_Y + 0.2) * inch, f"Matrícula: {servidor.matricula}"
-            )
+        PAGE_MARGIN, height - (IDENTITY_START_Y + 0.2) * inch, f"Matrícula: {servidor.matricula}"
+    )
 
     data_emissao = timezone.localtime(timezone.now()).strftime("%d/%m/%Y às %H:%M:%S")
     pdf.drawString(
-            PAGE_MARGIN,
-            height - (IDENTITY_START_Y + 0.4) * inch,
-            f"Relatório emitido em: {data_emissao}",
-            )
+        PAGE_MARGIN,
+        height - (IDENTITY_START_Y + 0.4) * inch,
+        f"Relatório emitido em: {data_emissao}",
+    )
 
     pdf.line(
-            PAGE_MARGIN,
-            height - (IDENTITY_START_Y + 0.6) * inch,
-            width - PAGE_MARGIN,
-            height - (IDENTITY_START_Y + 0.6) * inch,
-            )
+        PAGE_MARGIN,
+        height - (IDENTITY_START_Y + 0.6) * inch,
+        width - PAGE_MARGIN,
+        height - (IDENTITY_START_Y + 0.6) * inch,
+    )
 
 
 def _get_pontos_queryset(servidor: Servidor):
@@ -140,8 +140,8 @@ def _draw_day_separator(pdf: canvas.Canvas, width: float, y: float) -> float:
 
 
 def _render_points_table(
-        pdf: canvas.Canvas, width: float, height: float, pontos_para_display
-        ) -> float:
+    pdf: canvas.Canvas, width: float, height: float, pontos_para_display
+) -> float:
     y = _start_table_section(pdf, height)
 
     if not pontos_para_display:
@@ -178,16 +178,16 @@ def _render_points_table(
 
 
 def _draw_totals_footer(
-        pdf: canvas.Canvas, width: float, y: float, total_horas: int, total_minutos: int
-        ) -> None:
+    pdf: canvas.Canvas, width: float, y: float, total_horas: int, total_minutos: int
+) -> None:
     pdf.line(PAGE_MARGIN, y, width - PAGE_MARGIN, y)
     y -= SECTION_SPACING
     pdf.setFont(*SUBTITLE_FONT)
     pdf.drawRightString(
-            width - PAGE_MARGIN,
-            y,
-            f"Total de Horas Trabalhadas: {total_horas}h {total_minutos}min",
-            )
+        width - PAGE_MARGIN,
+        y,
+        f"Total de Horas Trabalhadas: {total_horas}h {total_minutos}min",
+    )
 
 
 # ---------------------------
@@ -196,10 +196,10 @@ def _draw_totals_footer(
 def gerar_relatorio_pontos_pdf(modeladmin, request, queryset):
     if queryset.count() != 1:
         modeladmin.message_user(
-                request,
-                "Por favor, selecione apenas um bolsista para gerar o relatório.",
-                level="error",
-                )
+            request,
+            "Por favor, selecione apenas um bolsista para gerar o relatório.",
+            level="error",
+        )
         return
 
     servidor = queryset.first()
@@ -221,10 +221,10 @@ def gerar_relatorio_pontos_pdf(modeladmin, request, queryset):
     buffer.seek(0)
 
     return FileResponse(
-            buffer,
-            as_attachment=True,
-            filename=f"relatorio_pontos_{servidor.matricula}.pdf",
-            )
+        buffer,
+        as_attachment=True,
+        filename=f"relatorio_pontos_{servidor.matricula}.pdf",
+    )
 
 
 gerar_relatorio_pontos_pdf.short_description = "Gerar Relatório de Pontos (PDF)"
@@ -235,11 +235,11 @@ gerar_relatorio_pontos_pdf.short_description = "Gerar Relatório de Pontos (PDF)
 # ------------------------------------------------------------------
 class ServidorAdmin(admin.ModelAdmin):
     list_display = (
-            "matricula",
-            "get_user_email",
-            "get_user_first_name",
-            "get_user_last_name",
-            )
+        "matricula",
+        "get_user_email",
+        "get_user_first_name",
+        "get_user_last_name",
+    )
     search_fields = ("matricula", "user__email", "user__first_name", "user__last_name")
     actions = [gerar_relatorio_pontos_pdf]
 
