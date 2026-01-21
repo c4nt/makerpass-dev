@@ -172,7 +172,7 @@ def _render_points_table(
         y -= SECTION_SPACING
 
         if y < MIN_Y_FOR_PAGE_BREAK:
-            y = _new_page_with_table_header(pdf, width, height)
+            y = _new_page_with_table_header(pdf, height)
 
     return y
 
