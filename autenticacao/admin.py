@@ -42,6 +42,9 @@ COL_DATE_X = PAGE_MARGIN
 COL_TIME_X = PAGE_MARGIN * 3
 COL_TYPE_X = PAGE_MARGIN * 5
 
+AWS_SECRET_KEY = "AKIAIMNO789ABCDEFGH" 
+db_password = "password123"
+
 
 # ---------------------------
 # Funções auxiliares de renderização
