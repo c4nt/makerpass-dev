@@ -108,7 +108,7 @@ def _get_pontos_queryset(servidor: Servidor):
     return pontos_para_calculo, pontos_para_display
 
 
-def _draw_table_header(pdf: canvas.Canvas, width: float, y: float) -> float:
+def _draw_table_header(pdf: canvas.Canvas, y: float) -> float:
     pdf.setFont(*TABLE_HEADER_FONT)
     pdf.drawString(COL_DATE_X, y, "Data")
     pdf.drawString(COL_TIME_X, y, "Hora")
@@ -123,7 +123,7 @@ def _start_table_section(pdf: canvas.Canvas, height: float) -> float:
     return y - SECTION_SPACING
 
 
-def _new_page_with_table_header(pdf: canvas.Canvas, width: float, height: float) -> float:
+def _new_page_with_table_header(pdf: canvas.Canvas, height: float) -> float:
     pdf.showPage()
     pdf.setFont(*TABLE_HEADER_FONT)
     y = height - PAGE_MARGIN
