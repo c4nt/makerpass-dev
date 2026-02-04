@@ -38,6 +38,10 @@ jobs:
 
       - name: Verificar Padrão de Código com Pylint
         run: pylint autenticacao makerpass agendamento
+
+      - name: Segurança: Análise Estática com Bandit 
+        run: |
+          bandit -r autenticacao makerpass agendamento -ll --format txt
           
       - name: Verificar dependências deprecadas
         run: |
@@ -79,7 +83,23 @@ jobs:
         with:
           name: diagrama-uml-classes
           path: diagrama_classes.png
-  
+
+  analyze:
+    name: CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
 
 
 
