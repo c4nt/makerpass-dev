@@ -39,7 +39,7 @@ jobs:
       - name: Verificar Padrão de Código com Pylint
         run: pylint autenticacao makerpass agendamento
 
-      - name: Segurança: Análise Estática com Bandit 
+      - name: Análise Estática com Bandit voltada para segurança
         run: |
           bandit -r autenticacao makerpass agendamento -ll --format txt
           
