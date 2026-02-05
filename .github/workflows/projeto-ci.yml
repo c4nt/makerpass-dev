@@ -30,6 +30,10 @@ jobs:
           python -m pip install --upgrade pip
 
           pip install -r requirements.txt
+      
+      - name: Análise Estática com Bandit voltada para segurança
+        run: |
+          bandit -r autenticacao makerpass agendamento -ll --format txt
 
       - name: Lint rápido com Ruff
         uses: astral-sh/ruff-action@v1
@@ -38,10 +42,6 @@ jobs:
 
       - name: Verificar Padrão de Código com Pylint
         run: pylint autenticacao makerpass agendamento
-
-      - name: Análise Estática com Bandit voltada para segurança
-        run: |
-          bandit -r autenticacao makerpass agendamento -ll --format txt
           
       - name: Verificar dependências deprecadas
         run: |
