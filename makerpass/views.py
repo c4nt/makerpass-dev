@@ -100,5 +100,3 @@ def sucesso_ponto(request, ponto_criado, servidor):
 
         # Armazena os dados na sessão para a próxima página
         request.session["horas_trabalhadas_dia"] = horas_trabalhadas_str
-
-
