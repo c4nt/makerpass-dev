@@ -101,16 +101,4 @@ def sucesso_ponto(request, ponto_criado, servidor):
         # Armazena os dados na sessão para a próxima página
         request.session["horas_trabalhadas_dia"] = horas_trabalhadas_str
 
-from django.db import connection
-from django.http import HttpResponse
 
-def teste_vulnerabilidade_security(request):
-    # SOURCE: Dado vindo do usuário (não confiável)
-    user_id = request.GET.get('id')
-    
-    # SINK: Execução direta de SQL sem parametrização (SQL Injection)
-    cursor = connection.cursor()
-    # O CodeQL detectará o fluxo do 'user_id' até aqui
-    cursor.execute("SELECT * FROM users WHERE id = %s" % user_id) 
-    
-    return HttpResponse("Teste de Segurança")
