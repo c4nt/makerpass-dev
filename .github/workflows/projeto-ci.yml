@@ -30,6 +30,10 @@ jobs:
           python -m pip install --upgrade pip
 
           pip install -r requirements.txt
+      
+      - name: Análise Estática com Bandit voltada para segurança
+        run: |
+          bandit -r autenticacao makerpass agendamento -ll --format txt
 
       - name: Lint rápido com Ruff
         uses: astral-sh/ruff-action@v1
@@ -79,7 +83,25 @@ jobs:
         with:
           name: diagrama-uml-classes
           path: diagrama_classes.png
-  
+
+  analyze:
+    name: CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
 
 
 
