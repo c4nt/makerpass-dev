@@ -96,7 +96,7 @@ jobs:
           
           echo "Servidor iniciado com PID $SERVER_PID. Aguardando disponibilidade..."
 
-          curl -v -k -f --retry 10 --retry-delay 2 --retry-connrefused https://127.0.0.1:8000/
+          curl -v -k -f --retry 10 --retry-delay 2 --retry-connrefused https://127.0.0.1:8000/makerpass
           
           CURL_EXIT_CODE=$?
 
