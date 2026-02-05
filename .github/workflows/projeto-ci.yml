@@ -84,6 +84,30 @@ jobs:
           name: diagrama-uml-classes
           path: diagrama_classes.png
 
+      - name: Gerar Certificados SSL Temporários
+        run: |
+          mkdir -p certs
+          openssl req -x509 -newkey rsa:2048 -keyout certs/key.pem -out certs/cert.pem -days 1 -nodes -subj "/CN=localhost"
+
+      - name: Teste de Integração HTTPS (RunServerPlus)
+        run: |
+          nohup python manage.py runserver_plus --cert-file certs/cert.pem --key-file certs/key.pem > server.log 2>&1 &
+          SERVER_PID=$!
+          
+          echo "Servidor iniciado com PID $SERVER_PID. Aguardando disponibilidade..."
+
+          curl -v -k -f --retry 10 --retry-delay 2 --retry-connrefused https://127.0.0.1:8000/
+          
+          CURL_EXIT_CODE=$?
+
+          if [ $CURL_EXIT_CODE -ne 0 ]; then
+            echo "Falha no teste HTTPS. Logs do servidor:"
+            cat server.log
+            exit 1
+          fi
+
+          kill $SERVER_PID
+
   analyze:
     name: CodeQL Security Analysis
     runs-on: ubuntu-latest
