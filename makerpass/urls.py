@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PaginaRegistroPontoView, PaginaSucessoPontoView, teste_vulnerabilidade_security
+from .views import PaginaRegistroPontoView, PaginaSucessoPontoView
 
 # Optar por utilizar CBV ao invés de FBV
 urlpatterns = [
