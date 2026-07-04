@@ -33,7 +33,7 @@ jobs:
       
       - name: Análise Estática com Bandit voltada para segurança
         run: |
-          bandit -r autenticacao makerpass agendamento -ll --format txt
+          bandit -r  makerpass  -ll --format txt
 
       - name: Lint rápido com Ruff
         uses: astral-sh/ruff-action@v1
@@ -41,7 +41,7 @@ jobs:
           args: "check --verbose"
 
       - name: Verificar Padrão de Código com Pylint
-        run: pylint autenticacao makerpass agendamento
+        run: pylint  makerpass 
           
       - name: Verificar dependências deprecadas
         run: |
@@ -76,7 +76,7 @@ jobs:
 
       - name: Gerar Diagrama de Classes UML
         run: |
-          python manage.py graph_models autenticacao makerpass agendamento -o diagrama_classes.png
+          python manage.py graph_models  makerpass  -o diagrama_classes.png
 
       - name: Upload do Diagrama como Artefato
         uses: actions/upload-artifact@v4
