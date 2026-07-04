@@ -4,6 +4,8 @@ load-plugins=pylint_django
 
 ignore=migrations, .venv, venv, .git, __pycache__, media, static, .devcontainer, sensor_client.py
 
+ignore-paths=^agendamento/.*$
+
 jobs=0
 
 [MESSAGES CONTROL]
