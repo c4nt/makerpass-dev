@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'django_extensions',
     # Apps
     "autenticacao",
-    "agendamento",
     "makerpass",
 ]
 
