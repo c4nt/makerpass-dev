@@ -1,16 +1,11 @@
-from datetime import datetime
-
-
 # Python imports
 from datetime import timedelta, time
-
 # Django imports
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils import timezone
 from django.views import View
 from django.views.generic import TemplateView
-
 # App imports
 from autenticacao.models import Servidor
 from .models import Ponto
