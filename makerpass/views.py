@@ -1,6 +1,4 @@
-# Python imports
-from datetime import timedelta, time
-# Django imports
+#Django imports
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils import timezone
@@ -10,54 +8,20 @@ from django.views.generic import TemplateView
 from autenticacao.models import Servidor
 from .models import Ponto
 from .utils import calcular_total_horas
-
+from .services import registrar_novo_ponto, calcular_horas_se_saida, RegraDePontoException, calcula_intervalo_de_tempo, deletar_ponto_pendente
 
 class PaginaRegistroPontoView(View):
     template_name = "makerpass/registrar_ponto.html"
-
     def get(self, request, **kwargs):
         return render(request, self.template_name)
-
     def post(self, request, **kwargs):
-        matricula = request.POST.get("matricula")
-        if not matricula:
-            messages.error(request, "Matrícula não informada.")
-            return redirect("pagina_registro_ponto")
-        try:
-            servidor = Servidor.objects.get(matricula=matricula)
-        except Servidor.DoesNotExist:
-            messages.error(request, "Bolsista não encontrado.")
-            return redirect("pagina_registro_ponto")
-
-        # --- INTEVALO DE 1 MIN. PARA REGISTRO DE PONTO ---
-        ultimo_ponto = Ponto.objects.filter(bolsista=servidor).last()
-        agora = timezone.now()
-
-        if ultimo_ponto:
-            tempo_desde_ultimo_ponto = agora - ultimo_ponto.data_hora_do_ponto
-            if tempo_desde_ultimo_ponto < timedelta(minutes=1):
-                segundos_restantes = int(60 - tempo_desde_ultimo_ponto.total_seconds())
-                messages.error(
-                    request,
-                    f"Aguarde {segundos_restantes} segundos para registrar um novo ponto.",
-                )
-                return redirect("pagina_registro_ponto")
-
-        # --- LÓGICA PARA DELETAR PONTOS PENDENTES DO DIA ANTERIOR ---
-        eh_entrada = not ultimo_ponto.eh_entrada if ultimo_ponto else True
-
-        if not eh_entrada:
-            if ultimo_ponto.data_hora_do_ponto.date() < timezone.now().date():
-                ultimo_ponto.delete()
-                eh_entrada = True
-
-        ponto_criado = Ponto.objects.create(bolsista=servidor, eh_entrada=eh_entrada)
-
-        # --- ENVIA DADOS PARA A PÁGINA DE SUCESSO ATRAVÉS DA SESSAO ---
-        sucesso_ponto(request, ponto_criado, servidor)
-
-        return redirect("pagina_sucesso_ponto")
-
+	matricula = request.POST.get("matricula")
+	ponto_criado, servidor = registrar_novo_ponto(matricula)
+	request.session.pop("horas_trabalhadas_dia", None)
+	horas_trabalhadas = calcular_horas_se_saida(ponto_criado, servidor)
+	if horas_trabalhadas:
+                request.session["horas_trabalhadas_dia"] = horas_trabalhadas
+	return redirect("pagina_sucesso_ponto")
 
 class PaginaSucessoPontoView(TemplateView):
     template_name = "makerpass/sucesso_ponto.html"
