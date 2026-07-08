@@ -8,14 +8,21 @@ from django.views.generic import TemplateView
 from autenticacao.models import Servidor
 from .models import Ponto
 from .utils import calcular_total_horas
-from .services import registrar_novo_ponto, calcular_horas_se_saida, RegraDePontoException, calcula_intervalo_de_tempo, deletar_ponto_pendente
+from .services import {
+	registrar_novo_ponto, 
+	calcular_horas_se_saida, 
+	RegraDePontoException, 
+	calcula_intervalo_de_tempo, 
+	deletar_ponto_pendente,
+	get_data 
+}
 
 class PaginaRegistroPontoView(View):
     template_name = "makerpass/registrar_ponto.html"
     def get(self, request, **kwargs):
         return render(request, self.template_name)
     def post(self, request, **kwargs):
-	matricula = request.POST.get("matricula")
+	servidor, ultimo_ponto = get_data()
 	ponto_criado, servidor = registrar_novo_ponto(matricula)
 	request.session.pop("horas_trabalhadas_dia", None)
 	horas_trabalhadas = calcular_horas_se_saida(ponto_criado, servidor)

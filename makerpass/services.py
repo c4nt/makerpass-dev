@@ -7,17 +7,22 @@ from .utils import calcular_total_horas
 class RegraDePontoException(Exception):
     pass
 
-def registrar_novo_ponto(matricula):
-    if not matricula:
-        raise RegraDePontoException("Matricula não informada.")
-    try:
-        servidor = Servidor.objects.get(matricula=matricula)
-    except Servidor.DoesNotExist:
-        raise RegraDePontoException("Bolsista não encontrado.")
-    ultimo_ponto = Ponto.objects.filter(bolsista=servidor).last()
+def get_data(request):
+	matricula = request.POST.get("matricula")
+	if not matricula:
+	        raise RegraDePontoException("Matricula não informada.")
+    	try:
+        	servidor = Servidor.objects.get(matricula=matricula)
+    	except Servidor.DoesNotExist:
+        	raise RegraDePontoException("Bolsista não encontrado.")
+	servidor = Servidor.objects.get(matricula=matricula)
+        ultimo_ponto = Ponto.objects.filter(bolsista=servidor).last()
+	return servidor, ultimo_ponto
+
+def registrar_novo_ponto(servidor, ultimo_ponto):
     _entrada = not ultimo_ponto.eh_entrada if ultimo_ponto else True
     ponto_criado = Ponto.objects.create(bolsista=servidor, eh_entrada=eh_entrada)
-    return ponto_criado, servidor
+    return ponto_criado
 
 def calcula_intervalo_de_tempo(ultimo_ponto):
     agora = timezone.now()
